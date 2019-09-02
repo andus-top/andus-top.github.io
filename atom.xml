@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>松林羊</title>
+  
+  <subtitle>旅游 | 听歌 | 动漫 | 健身 | IT宅</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://andus-top.github.io/"/>
+  <updated>2019-09-02T01:12:08.548Z</updated>
+  <id>https://andus-top.github.io/</id>
+  
+  <author>
+    <name>andus</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>office 2019 专业增强版 在线安装+激活</title>
+    <link href="https://andus-top.github.io/2019/08/14/office-2019-%E4%B8%93%E4%B8%9A%E5%A2%9E%E5%BC%BA%E7%89%88-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85-%E6%BF%80%E6%B4%BB/"/>
+    <id>https://andus-top.github.io/2019/08/14/office-2019-专业增强版-在线安装-激活/</id>
+    <published>2019-08-14T01:19:19.000Z</published>
+    <updated>2019-09-02T01:12:08.548Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最新office2019,在线安装激活教程&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="破解" scheme="https://andus-top.github.io/categories/%E7%A0%B4%E8%A7%A3/"/>
+    
+    
+      <category term="office" scheme="https://andus-top.github.io/tags/office/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux(Ubuntu 18.04 LTS)使用记录</title>
+    <link href="https://andus-top.github.io/2019/07/21/Linux-Ubuntu-18-04-LTS-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"/>
+    <id>https://andus-top.github.io/2019/07/21/Linux-Ubuntu-18-04-LTS-使用记录/</id>
+    <published>2019-07-20T23:51:52.000Z</published>
+    <updated>2019-09-02T01:07:47.310Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一篇关于Ubuntu的使用记录，包含分区，双系统安装教程，常用软件安装及配置…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="操作系统" scheme="https://andus-top.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="Ubuntu" scheme="https://andus-top.github.io/tags/Ubuntu/"/>
+    
+      <category term="Linux" scheme="https://andus-top.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis第一次启动，SHUTDOWN时提示： (error) ERR Errors trying to SHUTDOWN. Check logs.</title>
+    <link href="https://andus-top.github.io/2018/09/13/Redis%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%AF%E5%8A%A8%EF%BC%8CSHUTDOWN%E6%97%B6%E6%8F%90%E7%A4%BA%EF%BC%9A-error-ERR-Errors-trying-to-SHUTDOWN-Check-logs/"/>
+    <id>https://andus-top.github.io/2018/09/13/Redis第一次启动，SHUTDOWN时提示：-error-ERR-Errors-trying-to-SHUTDOWN-Check-logs/</id>
+    <published>2018-09-13T01:18:21.000Z</published>
+    <updated>2019-09-02T01:07:47.313Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天我也是第一次玩redis，从下载到安装到HelloWorld一切顺风顺水，谁知在最后关闭redis时，出现了&lt;code&gt;(error) ERR Errors trying to SHUTDOWN. Check logs.&lt;/code&gt;错误。下面贴出我的解决过程（可能有点繁琐）&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://andus-top.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Redis" scheme="https://andus-top.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL数据库字段级权限设计</title>
+    <link href="https://andus-top.github.io/2018/08/27/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E7%BA%A7%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/"/>
+    <id>https://andus-top.github.io/2018/08/27/MySQL数据库字段级权限设计/</id>
+    <published>2018-08-27T06:45:45.000Z</published>
+    <updated>2019-09-02T01:07:47.313Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;单纯个人设计的，关于数据库字段权限控制的解决方案，并附代码实现。应该有很多不足，有不好的地方可以指出，或者有更好的想法可以评论，一起交流^-^&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://andus-top.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="权限设计" scheme="https://andus-top.github.io/tags/%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/"/>
+    
+      <category term="Mysql" scheme="https://andus-top.github.io/tags/Mysql/"/>
+    
+      <category term="Spring" scheme="https://andus-top.github.io/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue-axios 前后端分离 跨域访问的实现</title>
+    <link href="https://andus-top.github.io/2018/08/22/vue-axios-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB-%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://andus-top.github.io/2018/08/22/vue-axios-前后端分离-跨域访问的实现/</id>
+    <published>2018-08-22T07:03:15.000Z</published>
+    <updated>2019-09-02T01:07:47.328Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一篇关于vue-axios与ssm工程跨域配置的记录…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Web开发" scheme="https://andus-top.github.io/categories/Web%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Vue" scheme="https://andus-top.github.io/tags/Vue/"/>
+    
+      <category term="axios" scheme="https://andus-top.github.io/tags/axios/"/>
+    
+      <category term="跨域" scheme="https://andus-top.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+  </entry>
+  
+</feed>
