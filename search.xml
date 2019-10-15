@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux下 创建tomcat启动关闭快捷方式]]></title>
+    <url>%2F2019%2F10%2F14%2FLinux%E4%B8%8B-%E5%88%9B%E5%BB%BAtomcat%E5%90%AF%E5%8A%A8%E5%85%B3%E9%97%AD%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[Linux下创建Tomcat快捷方式 原文：https://blog.csdn.net/rankun1/article/details/52816942 安装参考：https://blog.csdn.net/sun8112133/article/details/79944531 在linux下搭建好tomcat之后，每次启动和关闭都要去tomcat的bin目录下执行./startup.sh和./shutdown.sh 这是很不方便的，下面介绍如何像执行ls mv cp等命令一样启动，关闭，重启tomcat 创建脚本脚本创建路径 /etc/init.d/tomcat首先执行: vi /etc/init.d/tomcat按 i 编辑，将下面内容根据你自己的情况（修改/opt/java/tomcat8为你的tomcat路径）修改后copy到编辑框中， esc 退出编辑，:wq 保存退出 12345678910111213141516171819202122232425262728# !/bin/bash # Description: start or stop the tomcat # Usage: tomcat [start|stop|restart] # export PATH=$PATH:$HOME/binexport BASH_ENV=$HOME/.bashrcexport USERNAME=&quot;root&quot;case &quot;$1&quot; instart)#startup the tomcat cd /opt/java/tomcat8/bin./startup.sh;;stop)# stop tomcat cd /opt/java/tomcat8/bin./shutdown.shecho &quot;Tomcat Stoped&quot;;;restart)$0 stop$0 start;;*)echo &quot;tomcat: usage: tomcat [start|stop|restart]&quot;exit 1esacexit 0 脚本添加执行权限,执行命令 chmod +x /etc/init.d/tomcat创建软连接,执行下面两条命令 12cd /usr/bin ln -s /etc/init.d/tomcat . 测试好了，用下面的命令愉快的去玩耍吧 123tomcat starttomcat stoptomcat restart]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[软考知识点记录]]></title>
     <url>%2F2019%2F10%2F07%2F%E8%BD%AF%E8%80%83%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[软考知识点笔记 计算机组成与体系与结构数据的表示计算机接口Flynn分类法CISC与RISC流水线技术存储系统总线系统可靠性校验码]]></content>
@@ -41,6 +52,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[【转载】Linux /opt、/var挂载到单独分区]]></title>
+    <url>%2F2018%2F12%2F23%2FLinux-opt%E3%80%81-var%E6%8C%82%E8%BD%BD%E5%88%B0%E5%8D%95%E7%8B%AC%E5%88%86%E5%8C%BA%2F</url>
+    <content type="text"><![CDATA[Linux 上新建分区，参考教程：Linux 分区操作/opt 目录按照Linux /usr目录挂载到新分区此教程成功挂载。但是/var目录却一直未挂载成功。 下面给出/var目录的挂载步骤(/dev/sdb1为被挂载的分区)：1.创建一个挂载点：mkdir /storage。2.挂载 /dev/sdb1 到 /storage 目录上：mount /dev/sdb1 /storage。3.复制/var目录下的内容到/storage目录中：cp -pdr /var /storage。4.清空 /var目录 中的内容： rm -rf /var/* （通过ls命令看一下是否清空）。5.卸载 /dev/sdb1 : umount /dev/sdb1 。6.将 /dev/sdb1 挂载到 /var 上： mount /dev/sdb1 /var 。 然后通过 ls /var/ 命令查看 /var 中的内容。不过，我们会发现，原来的/var里的内容，现在被保存在了 /var/var/ 这样的目录下，而且还多了一个 lost+found 目录：为了和原来的 /var 保持一致，我们调整一下目录结构，依次执行下面三个命令：mv /var/var/* /var/rm -rf /var/varrm -rf /var/lost+found 设置开机自动挂载磁盘。打开 vim /etc/fstab 配置文件，在其后加上下面一句：/dev/sdb1 /var ext4 defaults 0 0不过，我们应该通过 blkid /dev/sdb1 查看一下磁盘分区UUID，将上面一句修改为：UUID=2d0a900b-4083-4d97-86f4-c66a0cd8249c /var ext4 defaults 0 0然后执行 mount -a 使得配置生效，或者重启。 参考原文https://ywnz.com/linuxjc/2219.html]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux目录挂载</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux /usr目录挂载到新分区]]></title>
     <url>%2F2018%2F12%2F22%2FLinux-usr%E7%9B%AE%E5%BD%95%E6%8C%82%E8%BD%BD%E5%88%B0%E6%96%B0%E5%88%86%E5%8C%BA%2F</url>
     <content type="text"><![CDATA[一篇关于Linux下/usr目录挂载到指定分区的教程 一、备份 1sudo cp -r /usr /usrbak 二、为/usr新建一个分区：参考教程：Linux 分区操作确保新分区没有挂载到其他目录。分区需要格式化成ext4格式(会清空数据) 1sudo mkfs -t ext4 /dev/sdxx 三、将目标分区挂在到一个临时目录 1sudo mount /dev/sdxx /usrtmp 四、 将/usr的全部内容拷到/usrtmp目录 1sudo cp -r /usr/. /usrtmp 五、修改目录所有者及权限： 123sudo chown root:root /usrtmp/bin/sudosudo chmod 4755 /usrtmp/bin/sudosudo chmod +s /usr/lib/policykit-1/polkit-agent-helper-1 否则sudo命令不能使用 六、取消/usrtmp目录的挂载 1sudo umount /dev/sdxxx 七、挂载到/usr目录 1sudo mount /dev/sdxx /usr 八、设置开机自动挂载： 查看分区uuid：sudo blkid 执行以下命令：sudo vi /etc/fstab，添加： UUID=对应分区的uuid /usr ext4 defaults 0 1 九、重启或执行sudo mount -a 问题 ubuntu18.0.4 : 使用sudo命令 提示:sudo: /usr/bin/sudo必须属于用户 ID 0(的用户)并且设置 setuid 位參考: https://blog.csdn.net/u014696921/article/details/70057447 INCORRECT PERMISSIONS ON /USR/LIB/PO1KIT-AGENT-HELPER-1(NEEDS TO BE SETUID ROOT)參考: https://www.cnblogs.com/tl542475736/p/9461669.html deepin15.8 分区是挂载上了，应用菜单中fcitx应用图标不见了，没有这个工具就不能配置中文输入法了。 查看是否还有残留的fcitx相关安装包：sudo dpkg --get-selections | grep fcitx如果有，将列表中所有安装包删除，并清除相关依赖sudo apt autoremove 安装搜狗输入法: sudo apt-get install sogoupinyin也可以参考：https://blog.csdn.net/github_33809414/article/details/85055814 重启 文件管理器中右键open in new window as admin点击无效了，解决方法还未找到。有解决方法了以后再更新。]]></content>
@@ -48,7 +70,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux分区</tag>
         <tag>Linux目录挂载</tag>
       </tags>
   </entry>
