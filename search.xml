@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Linux下 创建tomcat启动关闭快捷方式]]></title>
-    <url>%2F2019%2F10%2F14%2FLinux%E4%B8%8B-%E5%88%9B%E5%BB%BAtomcat%E5%90%AF%E5%8A%A8%E5%85%B3%E9%97%AD%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[Linux下创建Tomcat快捷方式 原文：https://blog.csdn.net/rankun1/article/details/52816942 安装参考：https://blog.csdn.net/sun8112133/article/details/79944531 在linux下搭建好tomcat之后，每次启动和关闭都要去tomcat的bin目录下执行./startup.sh和./shutdown.sh 这是很不方便的，下面介绍如何像执行ls mv cp等命令一样启动，关闭，重启tomcat 创建脚本脚本创建路径 /etc/init.d/tomcat首先执行: vi /etc/init.d/tomcat按 i 编辑，将下面内容根据你自己的情况（修改/opt/java/tomcat8为你的tomcat路径）修改后copy到编辑框中， esc 退出编辑，:wq 保存退出 12345678910111213141516171819202122232425262728# !/bin/bash # Description: start or stop the tomcat # Usage: tomcat [start|stop|restart] # export PATH=$PATH:$HOME/binexport BASH_ENV=$HOME/.bashrcexport USERNAME=&quot;root&quot;case &quot;$1&quot; instart)#startup the tomcat cd /opt/java/tomcat8/bin./startup.sh;;stop)# stop tomcat cd /opt/java/tomcat8/bin./shutdown.shecho &quot;Tomcat Stoped&quot;;;restart)$0 stop$0 start;;*)echo &quot;tomcat: usage: tomcat [start|stop|restart]&quot;exit 1esacexit 0 脚本添加执行权限,执行命令 chmod +x /etc/init.d/tomcat创建软连接,执行下面两条命令 12cd /usr/bin ln -s /etc/init.d/tomcat . 测试好了，用下面的命令愉快的去玩耍吧 123tomcat starttomcat stoptomcat restart]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[软考知识点记录]]></title>
     <url>%2F2019%2F10%2F07%2F%E8%BD%AF%E8%80%83%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[软考知识点笔记 计算机组成与体系与结构数据的表示计算机接口Flynn分类法CISC与RISC流水线技术存储系统总线系统可靠性校验码]]></content>
@@ -52,6 +41,29 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[MySQL中将一列以逗号分隔的值行转列]]></title>
+    <url>%2F2019%2F01%2F26%2FMySQL%E4%B8%AD%E5%B0%86%E4%B8%80%E5%88%97%E4%BB%A5%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E7%9A%84%E5%80%BC%E8%A1%8C%E8%BD%AC%E5%88%97%2F</url>
+    <content type="text"><![CDATA[MySQL行转列案例… 前言有时会遇到没有遵守第一范式设计模式的业务表。即一列中存储了多个属性值。如下表 pk value 1 ET,AT 2 AT,BT 3 AT,DT 4 DT,CT,AT 一般有这两种常见需求(测试数据见文末) 得到所有的不重复的值，如 value AT BT CT DT ET SQL如下 123456select distinct(substring_index(substring_index(a.col,',',b.help_topic_id+1),',',-1))from (select group_concat(distinct `value`) as col from `row_to_col`) as ajoin mysql.help_topic as bon b.help_topic_id &lt; (char_length(a.col) - char_length(replace(a.col,',',''))+1) 显示每个值及其对应主键，如 pk value 1 ET 1 AT 2 AT 2 BT 3 AT 3 DT 4 DT 4 CT 4 AT SQL如下 123456select a.pk,substring_index(substring_index(a.col,',',b.help_topic_id+1),',',-1)from (select `value` as col,pk from `row_to_col`) as ajoin mysql.help_topic as bon b.help_topic_id &lt; (char_length(a.col) - char_length(replace(a.col,',',''))+1) 实现思路 需求1 通过group_concat函数将value列的值拼接成一个逗号隔开的字符串，然后通过substring_index函数对字符串进行截取 通过substring_index函数特性，我们就需要知道字符串有多少个逗号，并且要告诉每个逗号的位置 逗号个数=char_length(字符串)-char_length(replace(字符串,',','')) 逗号位置=mysql.help_topic.id &lt; 逗号个数[+1] 最后通过distinct函数将截取后的单个值进行去重 注意 mysql.help_topic表的自增id是从0开始，所以在进行截取时要对id进行+1。见: substring_index(a.col,',',b.help_topic_id+1) value列最后一个字符不是逗号时：逗号个数+1是为了截取时不漏掉最后一个逗号后的值，即: char_length(a.col) - char_length(replace(a.col,',',''))+1value列最后一个字符是逗号时：逗号个数就不需要+1了，直接：char_length(a.col) - char_length(replace(a.col,',','')) 因为截取时id要+1，所以在连接时取的&lt; ，而不是 &lt;= 。见：b.help_topic_id &lt; (char_length(a.col) - char_length(replace(a.col,',',''))[+1]) mysql.help_topic(mysql version: 5.7.21-1)表的自增id，最大值为636。如果group_concat后的字符串中逗号个数大于该值，需要自己单独处理自增id的值 需求2：思路基本与需求1同，只是最后的查询不一样 涉及到的函数 length:返回字符串所占的字节数，是计算字段的长度。一个汉字或是中文符号是算三个字符,一个数字或字母或英文符号算一个字符。 char_length:返回字符串所占的字符数，不管汉字还是数字或者是字母或者符号(不分中英文)都算是一个字符。 replace(str,old_string,new_string): 将字符串中str中所有的old_string替换成new_string。 substring_index(被截取字段，关键字，关键字出现的次数)：截取字符串。如果关键字出现的次数是负数 ， 则是从后倒数，到字符串结束。 group_concat([DISTINCT] 要连接的字段(可多个,逗号隔开) [Order BY 排序字段 ASC/DESC] [Separator '分隔符'])：将group by产生的同一个分组中的值连接起来，返回一个字符串结果。分隔符，默认逗号。 测试数据1234567891011DROP TABLE IF EXISTS `row_to_col`;CREATE TABLE `row_to_col` ( `pk` int(11) NOT NULL AUTO_INCREMENT, `value` varchar(255) DEFAULT NULL, PRIMARY KEY (`pk`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;INSERT INTO `row_to_col` VALUES ('1', 'ET,AT');INSERT INTO `row_to_col` VALUES ('2', 'AT,BT');INSERT INTO `row_to_col` VALUES ('3', 'AT,DT');INSERT INTO `row_to_col` VALUES ('4', 'DT,CT,AT'); 参考：https://blog.csdn.net/liuzhoulong/article/details/51729168https://blog.csdn.net/ldl22847/article/details/47609727]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【转载】Phoenix 异步建立二级索引失败，Hbase表名需大写]]></title>
+    <url>%2F2019%2F01%2F25%2FPhoenix-%E5%BC%82%E6%AD%A5%E5%BB%BA%E7%AB%8B%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%A4%B1%E8%B4%A5%EF%BC%8CHbase%E8%A1%A8%E5%90%8D%E9%9C%80%E5%A4%A7%E5%86%99%2F</url>
+    <content type="text"><![CDATA[Phoenix异步建立二级索引，必须要求Hbase表名需大写 环境：phoenix-5.0.0-Hbase-2.0.0关于怎么建立二级索引的原理及方法，我就不复述了，有需要的可以看看下面这些博客，挺好的转至：https://www.cnblogs.com/haoxinyue/p/6724365.html https://www.cnblogs.com/mario-nb/p/6350266.html?utm_source=itdadao&amp;utm_medium=referral 在这里我想强调的是，当我们的hbase表数据非常大时，测试大概5000万以上的数据建二级索引就会遇到连接超时的问题。 当然我们也可以调整连接时间如下：在客户端配置文件hbase-site.xml中，把超时参数设置大一些，足够build索引数据的时间。 12345678910111213141516171819202122232425262728&lt;property&gt;​&lt;name&gt;phoenix.query.timeoutMs&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;phoenix.query.keepAliveMs&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;hbase.rpc.timeout&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;hbase.regionserver.lease.period&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;hbase.client.operation.timeout&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;hbase.client.scanner.caching&lt;/name&gt;&lt;value&gt;1000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;​&lt;name&gt;hbase.client.scanner.timeout.period&lt;/name&gt;&lt;value&gt;1200000&lt;/value&gt;&lt;/property&gt; 这种方式显然看起来就不太友好所以，我们就想到了用异步索引的方式去建立照着网上的方式:兴高采烈的去开干了，在linux输入以下命令： 123$&#123;HBASE_HOME&#125;/bin/hbase org.apache.phoenix.mapreduce.index.IndexTool --schema MY_SCHEMA --data-table MY_TABLE --index-table ASYNC_IDX --output-path ASYNC_IDX_HFILES 结果直接就报错了：它竟然说我的索引不是数表的索引，我当时就蒙了，这是咋回事呢？马上跑到phoenix client去查看，分明就是它的索引啊 ，可以通过命令查看 1select TABLE_NAME,DATA_TABLE_NAME,INDEX_TYPE,INDEX_STATE,INDEX_DISABLE_TIMESTAMP from system.catalog where INDEX_TYPE is not null; 那又是咋回事啊，想想是不是建索引出问题了，遂不信邪的再一次实验，继续出错，错误如出一辙，正当我准备放弃的时候。突然发现这好像有些不对，我的表分明是小写的t33，咋它说我的索引表却不是T33的index呢，是不是这个IndexTool有某种方式，将所有的表都转化为大写的呢，还是它只认识大写的表 接下来我就创建了一个大写的表去建索引，果然这次并没报错误，至于具体是哪种原因，没找到方法去研究。 结论：平时总喜欢建小写的hbase表，因为大写的看着别扭，这不自己把自己坑了几天，过程用同步索引都因为超时等各种原因，导致失败多次，让我哭会。。。。 大家又遇到这个问题么？ 原文链接：https://www.cnblogs.com/henyu/p/9179653.html]]></content>
+      <categories>
+        <category>中间件</category>
+      </categories>
+      <tags>
+        <tag>Hbase</tag>
+        <tag>Phoenix</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Phoenix varchar 空串等于null的坑]]></title>
     <url>%2F2019%2F01%2F15%2FPhoenix-varchar-%E7%A9%BA%E4%B8%B2%E7%AD%89%E4%BA%8Enull%E7%9A%84%E5%9D%91%2F</url>
     <content type="text"><![CDATA[举例说明，Phoenix将空串(“”)处理成null的坑 场景描述 业务的部分数据来源于hive，部分数据来源于hbase。两边数据通过一些条件字段关联，可是始终有部分数据关联不上。 hive数据源的数据直接通过hive api进行读写，hbase数据源通过phoenix读写。而且写入hbase的数据最终来源于hive，没道理会关联不上。 之后查找了好久，终于发现问题所在。就在phoenix对空串(“”)的处理，或者说没做写入处理。 通过下面案例说明 测试(phoenix-5.0.0-hbase-2.0.0) 建表： 12345678create table "test"( rk varchar primary key, "cf1"."c1" varchar, "cf1"."c2" varchar, "cf1"."c3" unsigned_int, "cf1"."c4" unsigned_long, "cf1"."c5" unsigned_double); 测试数据 12upsert into "test" (rk,"cf1"."c1","cf1"."c3","cf1"."c4","cf1"."c5") values ('rk1','varchar',100,111,1.123);upsert into "test" (rk,"cf1"."c1") values ('rk2',''); 查询结果 总结 phoenix 没有对空串(“”)进行处理，所以结果仍为null。 phoenix 对varchar 类型的null显示为空白，对数值类型的null显示为null。]]></content>
@@ -73,6 +85,17 @@
       <tags>
         <tag>Hbase</tag>
         <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux下 创建tomcat启动关闭快捷方式]]></title>
+    <url>%2F2018%2F12%2F24%2FLinux%E4%B8%8B-%E5%88%9B%E5%BB%BAtomcat%E5%90%AF%E5%8A%A8%E5%85%B3%E9%97%AD%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[Linux下创建Tomcat快捷方式 原文：https://blog.csdn.net/rankun1/article/details/52816942 安装参考：https://blog.csdn.net/sun8112133/article/details/79944531 在linux下搭建好tomcat之后，每次启动和关闭都要去tomcat的bin目录下执行./startup.sh和./shutdown.sh 这是很不方便的，下面介绍如何像执行ls mv cp等命令一样启动，关闭，重启tomcat 创建脚本脚本创建路径 /etc/init.d/tomcat首先执行: vi /etc/init.d/tomcat按 i 编辑，将下面内容根据你自己的情况（修改/opt/java/tomcat8为你的tomcat路径）修改后copy到编辑框中， esc 退出编辑，:wq 保存退出 12345678910111213141516171819202122232425262728# !/bin/bash # Description: start or stop the tomcat # Usage: tomcat [start|stop|restart] # export PATH=$PATH:$HOME/binexport BASH_ENV=$HOME/.bashrcexport USERNAME=&quot;root&quot;case &quot;$1&quot; instart)#startup the tomcat cd /opt/java/tomcat8/bin./startup.sh;;stop)# stop tomcat cd /opt/java/tomcat8/bin./shutdown.shecho &quot;Tomcat Stoped&quot;;;restart)$0 stop$0 start;;*)echo &quot;tomcat: usage: tomcat [start|stop|restart]&quot;exit 1esacexit 0 脚本添加执行权限,执行命令 chmod +x /etc/init.d/tomcat创建软连接,执行下面两条命令 12cd /usr/bin ln -s /etc/init.d/tomcat . 测试好了，用下面的命令愉快的去玩耍吧 123tomcat starttomcat stoptomcat restart]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
