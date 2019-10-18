@@ -36,8 +36,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Ubuntu</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -118,8 +118,8 @@
         <category>中间件</category>
       </categories>
       <tags>
-        <tag>Phoenix</tag>
         <tag>Hbase</tag>
+        <tag>Phoenix</tag>
       </tags>
   </entry>
   <entry>
@@ -130,8 +130,8 @@
         <category>中间件</category>
       </categories>
       <tags>
-        <tag>Phoenix</tag>
         <tag>Hbase</tag>
+        <tag>Phoenix</tag>
       </tags>
   </entry>
   <entry>
@@ -177,8 +177,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>目录挂载</tag>
         <tag>Linux目录挂载</tag>
+        <tag>目录挂载</tag>
       </tags>
   </entry>
   <entry>
