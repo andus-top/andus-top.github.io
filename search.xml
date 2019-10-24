@@ -308,9 +308,10 @@
     <content type="text"><![CDATA[MySQL 分页机制bug，导致丢数据问题 直接用例子说话，查询的是第2页的数据，每页20条。注意选中的数据。查询第3页的数据，很明显同一条数据出现了两次。那么丢数据是怎么回事呢？ 再来看看2019-03-20日的具体数据，注意选中的数据。很明显，在图一和图二中找不到该条数据。从而导致我们莫名其妙的就丢了数据了。 那么导致问题的原因是什么呢？这锅就应该MySQL背了，明显是MySQL分页机制的bug。后来，看了一下出问题的MySQL的版本：5.6.20-log。接着在5.7.16版本上测试了，没有该问题。 一般在生产环境中，版本升级不是那么容易的，那么在不能升级版本的情况下又该怎么解决这个问题呢？我在排序条件上新增了一列,ORDER BY stat_date DESC,cls3 desc,成功解决分页丢数据问题。]]></content>
       <categories>
         <category>数据库</category>
+        <category>踩坑</category>
       </categories>
       <tags>
-        <tag>Mysql</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -380,7 +381,7 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>Mysql</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -497,7 +498,7 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>Mysql</tag>
+        <tag>MySQL</tag>
         <tag>权限设计</tag>
         <tag>Spring</tag>
       </tags>
