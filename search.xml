@@ -286,8 +286,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Ubuntu</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -543,8 +543,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>Mysql</tag>
         <tag>权限设计</tag>
+        <tag>Mysql</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
